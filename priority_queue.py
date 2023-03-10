@@ -14,12 +14,7 @@ class PriorityQueue:
         self.heap.insert(index, item)
             
     def get(self):
-        if self.heap:
-            element = self.heap[-1]
-            self.heap.remove(self.heap[-1])
-            return element
-        else:
-            raise Exception('Trying to pop from empty PriorityQueue.')
+        return self.heap.pop(0)
         
     def empty(self):
 	    return len(self.heap) == 0 
