@@ -1,0 +1,132 @@
+
+<!-- saved from url=(0080)file:///private/var/folders/dw/wlx_tjcd2v7fybk45dtdm6640000gn/T/cpu_profile.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body><pre>Total time: 25.174s
+File: /Users/rishabhjain/Documents/Masters/SEM 2/Aritificial Intelligence/Program/Program 1/program_1.py
+Function: expand at line 48
+
+Line #      Hits         Time      Per Hit    % Time    Line Contents
+=====================================================================
+    48                                                  @cpu
+    49                                                  def expand(board):
+    50    690276      289.7ms            .      1.2%        for i in range(len(board.data)):
+    51   1725749      497.5ms            .      2.0%            for j in range(len(board.data[i])):
+    52   1380611      413.8ms            .      1.6%                if board.data[i][j] == '*':
+    53    172569       60.6ms            .      0.2%                    location = [i,j]; 
+    54    172569       37.9ms            .      0.2%                    break
+    55                                                  
+    56    172569       37.1ms            .      0.1%        actions = []
+    57    632867        2.69s            . <a style="color:#B85450">    10.7%</a>        for move in possible_actions(constants.board, location):
+    58    460298       21.10s            . <a style="color:#B85450">    83.8%</a>            actions.append([result(location, move, board.data) , move])
+    59                                                  
+    60    172569       39.8ms            .      0.2%        return actions
+
+</pre><pre>Total time: 1.268s
+File: /Users/rishabhjain/Documents/Masters/SEM 2/Aritificial Intelligence/Program/Program 1/program_1.py
+Function: possible_actions at line 62
+
+Line #      Hits         Time      Per Hit    % Time    Line Contents
+=====================================================================
+    62                                                  @cpu
+    63                                                  def possible_actions(board, location):
+    64    172569       57.0ms            .      4.5%        actions = ["RIGHT","LEFT","UP","DOWN"]
+    65    172569       43.8ms            .      3.5%        actionstopeform = []
+    66                                                      
+    67    862845      224.2ms            . <a style="color:#B85450">    17.7%</a>        for x in actions:
+    68                                                          <a style="color:#b9b9b9"># for moving right </a>
+    69    690276      179.5ms            . <a style="color:#B85450">    14.2%</a>            if x == "RIGHT":
+    70    172569       64.4ms            .      5.1%                if location[1]+1 &lt; len(board):
+    71    115037       62.0ms            .      4.9%                    actionstopeform.append([x,location[0],location[1]+1])
+    72                                                          <a style="color:#b9b9b9"># for moving left</a>
+    73    517707      143.9ms            . <a style="color:#B85450">    11.3%</a>            elif x == "LEFT":
+    74    172569       56.3ms            .      4.4%                if location[1]-1 &gt;= 0:
+    75    115096       56.3ms            .      4.4%                    actionstopeform.append([x,location[0],location[1]-1])
+    76                                                          <a style="color:#b9b9b9"># for moving up </a>
+    77    345138       87.5ms            .      6.9%            elif x == "UP":
+    78    172569       53.5ms            .      4.2%                if location[0]-1 &gt;= 0:
+    79    115142       49.3ms            .      3.9%                    actionstopeform.append([x,location[0]-1,location[1]])
+    80                                                          <a style="color:#b9b9b9"># for moving down</a>
+    81    172569       42.7ms            .      3.4%            elif x == "DOWN":
+    82    172569       58.8ms            .      4.6%                if location[0]+1 &lt; len(board):
+    83    115023       48.6ms            .      3.8%                    actionstopeform.append([x,location[0]+1,location[1]])
+    84                                                  
+    85    172569       40.6ms            .      3.2%        return actionstopeform
+
+</pre><pre>Total time: 19.970s
+File: /Users/rishabhjain/Documents/Masters/SEM 2/Aritificial Intelligence/Program/Program 1/program_1.py
+Function: result at line 87
+
+Line #      Hits         Time      Per Hit    % Time    Line Contents
+=====================================================================
+    87                                                  @cpu
+    88                                                  def result(location,action,board):
+    89                                                      <a style="color:#b9b9b9"># copy of a board so that we can modify it </a>
+    90    460298       16.44s            . <a style="color:#B85450">    82.3%</a>        newBoard = copy.deepcopy(board)
+    91    460298        1.18s            .      5.9%        temp = copy.deepcopy(newBoard[action[1]][action[2]]) 
+    92    460298        1.14s            .      5.7%        newBoard[action[1]][action[2]] = copy.deepcopy('*')
+    93    460298        1.12s            .      5.6%        newBoard[location[0]][location[1]]  = copy.deepcopy(temp)
+    94                                                      <a style="color:#b9b9b9"># return new board after moving * - NIL to the new location </a>
+    95    460298      100.2ms            .      0.5%        return newBoard
+
+</pre><pre>Total time: 4022.837s
+File: /Users/rishabhjain/Documents/Masters/SEM 2/Aritificial Intelligence/Program/Program 1/program_1.py
+Function: bfs at line 140
+
+Line #      Hits         Time      Per Hit    % Time    Line Contents
+=====================================================================
+   140                                                  @cpu
+   141                                                  def bfs(board):
+   142         1            .            .         .        frontier = queue.Queue()
+   143         1            .            .         .        node = Node(data = board)
+   144         1            .            .         .        frontier.put(node)
+   145         1            .            .         .        maxQueueSize = 1
+   146         1            .            .         .        if constants.goalBoard == node.data:
+   147                                                          print('mill gya:', maxQueueSize)
+   148                                                          return node
+   149                                                      
+   150         1            .            .         .        reached = []
+   151         1            .            .         .        reached.append(board)
+   152                                                  
+   153    172569      611.8ms            .         .        while not frontier.empty():
+   154    172569        1.10s            .         .            val = frontier.get()
+   155    632865       27.19s            .      0.7%            for child in expand(val):
+   156    460297        1.20s            .         .                s =  Node(data=child[0], depth = val.depth + 1, move= child[1] , prev=val)
+   157                                                              
+   158    460297      268.4ms            .         .                if goalBoard == s.data: 
+   159         1        0.1ms        0.1ms         .                    print('Max queue size:', maxQueueSize)
+   160         1            .            .         .                    return s
+   161    460296     3990.38s        8.7ms <a style="color:#B85450">    99.2%</a>                if s.data not in reached:
+   162    178222      251.2ms            .         .                    reached.append(s.data)
+   163    178222        1.75s            .         .                    frontier.put(s)
+   164    178222       79.0ms            .         .                    maxQueueSize+=1
+   165                                                  
+   166                                                      print('Max queue size:', maxQueueSize)
+   167                                                                  
+   168                                                      return failure   
+
+</pre><pre>Total time: 0.000s
+File: /Users/rishabhjain/Documents/Masters/SEM 2/Aritificial Intelligence/Program/Program 1/program_1.py
+Function: printStatistics at line 261
+
+Line #      Hits         Time      Per Hit    % Time    Line Contents
+=====================================================================
+   261                                                  @cpu
+   262                                                  def printStatistics(solution):
+   263         1            .            .      0.7%        pathCost = 0
+   264         1            .            .      0.3%        stateSequence = []
+   265         1            .            .         .        actionSequence = []
+   266                                                  
+   267        29            .            .      3.1%        while solution.prev != None:
+   268        28            .            .      7.1%            stateSequence.insert(0, solution.data)
+   269        28            .            .      2.7%            actionSequence.insert(0, solution.move)
+   270        28            .            .      2.0%            solution = solution.prev
+   271        28            .            .      2.0%            pathCost += 1
+   272                                                  
+   273         1            .            .      5.4%        print('Action sequence:')
+   274         1        0.1ms        0.1ms <a style="color:#B85450">    28.1%</a>        print(*actionSequence, sep='\n')
+   275                                                  
+   276         1            .            .      1.0%        print('\nState sequence:')
+   277         1        0.1ms        0.1ms <a style="color:#B85450">    45.8%</a>        print(*stateSequence, sep='\n')
+   278                                                  
+   279         1            .            .      1.7%        print('\nPath cost:', pathCost)
+
+</pre></body></html>
