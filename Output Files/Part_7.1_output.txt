@@ -1,0 +1,136 @@
+Part 7.1
+Profile each of iterative deepening search, breadth-first search, and A* search using Manhattan distance solving *puzzle-0*. Even on this simple puzzle solvable in only 6 moves, you should be able to get a sense of the difference in performance characteristics between these three algorithms.
+ 
+A) Iterative deepening search -  program file attached 
+ 
+Profiler report: idfs_report_7.1_3.pdf
+
+Filename: /Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/line_profiler/line_profiler.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+   106     43.0 MiB     43.0 MiB           1           @functools.wraps(func)
+   107                                                 def wrapper(*args, **kwds):
+   108                                                     self.enable_by_count()
+   109                                                     try:
+   110                                                         result = func(*args, **kwds)
+   111                                                     finally:
+   112                                                         self.disable_by_count()
+   113                                                     return result
+Max queue size: 401
+Action sequence:
+['LEFT', 1, 0]
+['DOWN', 2, 0]
+['RIGHT', 2, 1]
+['UP', 1, 1]
+['LEFT', 1, 0]
+['UP', 0, 0]
+ 
+State sequence:
+[[3, 1, 2], ['*', 7, 5], [4, 6, 8]]
+[[3, 1, 2], [4, 7, 5], ['*', 6, 8]]
+[[3, 1, 2], [4, 7, 5], [6, '*', 8]]
+[[3, 1, 2], [4, '*', 5], [6, 7, 8]]
+[[3, 1, 2], ['*', 4, 5], [6, 7, 8]]
+[['*', 1, 2], [3, 4, 5], [6, 7, 8]]
+ 
+Path cost: 6
+
+----------------------------------------------------------------------------------------------------------
+
+B) BFS Search: -  program file attached 
+
+Profiler report : bfs_report_7.1_2.pdf
+
+Filename: /Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/line_profiler/line_profiler.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+   106     42.8 MiB     42.8 MiB           1           @functools.wraps(func)
+   107                                                 def wrapper(*args, **kwds):
+   108                                                     self.enable_by_count()
+   109                                                     try:
+   110                                                         result = func(*args, **kwds)
+   111                                                     finally:
+   112                                                         self.disable_by_count()
+   113                                                     return result
+ 
+Filename: /Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/line_profiler/line_profiler.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+   106     42.8 MiB     42.8 MiB           1           @functools.wraps(func)
+   107                                                 def wrapper(*args, **kwds):
+   108                                                     self.enable_by_count()
+   109                                                     try:
+   110                                                         result = func(*args, **kwds)
+   111                                                     finally:
+   112                                                         self.disable_by_count()
+   113                                                     return result
+
+Max queue size: 97
+ 
+Action sequence:
+['LEFT', 1, 0]
+['DOWN', 2, 0]
+['RIGHT', 2, 1]
+['UP', 1, 1]
+['LEFT', 1, 0]
+['UP', 0, 0]
+ 
+State sequence:
+[[3, 1, 2], ['*', 7, 5], [4, 6, 8]]
+[[3, 1, 2], [4, 7, 5], ['*', 6, 8]]
+[[3, 1, 2], [4, 7, 5], [6, '*', 8]]
+[[3, 1, 2], [4, '*', 5], [6, 7, 8]]
+[[3, 1, 2], ['*', 4, 5], [6, 7, 8]]
+[['*', 1, 2], [3, 4, 5], [6, 7, 8]]
+ 
+Path cost: 6
+  
+----------------------------------------------------------------------------------------------------------
+
+C) A* search with manhattan distance heuristic :   -  program file attached 
+ 
+Profiler report : a_star_report_7.1_1.pdf 
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+   106     43.0 MiB     43.0 MiB           1           @functools.wraps(func)
+   107                                                 def wrapper(*args, **kwds):
+   108                                                     self.enable_by_count()
+   109                                                     try:
+   110                                                         result = func(*args, **kwds)
+   111                                                     finally:
+   112                                                         self.disable_by_count()
+   113                                                     return result
+ 
+Max queue size: 16
+ 
+Action sequence:
+['LEFT', 1, 0]
+['DOWN', 2, 0]
+['RIGHT', 2, 1]
+['UP', 1, 1]
+['LEFT', 1, 0]
+['UP', 0, 0]
+ 
+State sequence:
+[[3, 1, 2], ['*', 7, 5], [4, 6, 8]]
+[[3, 1, 2], [4, 7, 5], ['*', 6, 8]]
+[[3, 1, 2], [4, 7, 5], [6, '*', 8]]
+[[3, 1, 2], [4, '*', 5], [6, 7, 8]]
+[[3, 1, 2], ['*', 4, 5], [6, 7, 8]]
+[['*', 1, 2], [3, 4, 5], [6, 7, 8]]
+ 
+Path cost: 6
+
+
+Statistics: 
+
+Time	Memory - Max Queue Size	Memory used by function 	Path Cost	Puzzle	Total calls to expand	Search
+0.086s	401	43Mb	6	0	1691	Iterative deepening search
+0.009s	97	42.8Mb	6	0	199	Breath First Search
+0.002s	16	43.0Mb	6	0	28	A star Manhattan
+
+ 

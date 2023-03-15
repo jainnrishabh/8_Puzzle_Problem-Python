@@ -1,0 +1,100 @@
+import copy
+import queue
+ 
+board = constants.board
+goalBoard = constants.goalBoard
+failure =  constants.failure
+cut_off =  constants.cut_off
+ 
+class Node:
+    def __init__(self, data, depth=0, move = None, prev = None):
+        self.data = data   # Assign data
+        self.depth = depth # Assign depth
+        self.move = move   # Assign move performed 
+        self.prev = prev   # Initialize prev as null
+  
+class LinkedList:
+    def __init__(self):
+        self.head = None
+ 
+def hasCycle(list):
+    s = set()
+    temp = list
+    while (temp):
+        if (temp in s):
+            return True
+        s.add(temp)
+        temp = temp.prev
+    return False
+ 
+def printStatistics(solution):
+    pathCost = 0
+    stateSequence = []
+    actionSequence = []
+ 
+    while solution.prev != None:
+        stateSequence.insert(0, solution.data)
+        actionSequence.insert(0, solution.move)
+        solution = solution.prev
+        pathCost += 1
+ 
+    print('Action sequence:')
+    print(*actionSequence, sep='\n')
+ 
+    print('\nState sequence:')
+    print(*stateSequence, sep='\n')
+ 
+    print('\nPath cost:', pathCost)
+ 
+# Iterative deepening search
+def idfs(board,depth):
+    for step in range(depth):
+        result = depthFirstSearch(board, step)
+        if(result != cut_off): 
+            return result
+ 
+def depthFirstSearch(board, step):
+    result = failure
+    frontier = queue.LifoQueue()
+    node = Node(data=board)
+    frontier.put(node)
+ 
+    while not frontier.empty():
+        val = frontier.get()
+        if goalBoard == val.data:
+            return val
+        if  val.depth > step:
+            result = cut_off
+        elif not hasCycle(val):
+            for child in expand(val):
+                temp =  Node(data=child[0], depth =val.depth + 1 ,move= child[1] , prev=val)
+                frontier.put(temp)
+    return result
+ 
+printStatistics(idfs(board,50))
+ 
+
+
+
+
+
+
+Output: 
+ 
+Action sequence:
+['LEFT', 1, 0]
+['DOWN', 2, 0]
+['RIGHT', 2, 1]
+['UP', 1, 1]
+['LEFT', 1, 0]
+['UP', 0, 0]
+ 
+State sequence:
+[[3, 1, 2], ['*', 7, 5], [4, 6, 8]]
+[[3, 1, 2], [4, 7, 5], ['*', 6, 8]]
+[[3, 1, 2], [4, 7, 5], [6, '*', 8]]
+[[3, 1, 2], [4, '*', 5], [6, 7, 8]]
+[[3, 1, 2], ['*', 4, 5], [6, 7, 8]]
+[['*', 1, 2], [3, 4, 5], [6, 7, 8]]
+ 
+Path cost: 6

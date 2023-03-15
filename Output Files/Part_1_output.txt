@@ -1,0 +1,31 @@
+puzzle_0 = [[3,1,2],[7,'*',5],[4,6,8]]
+ 
+def possible_actions(board, location):
+    actions = ["RIGHT","LEFT","UP","DOWN"]
+    actionstopeform = []
+    
+    for x in actions:
+        # for moving right 
+        if x == "RIGHT":
+            if location[1]+1 < len(board):
+                actionstopeform.append([x,location[0],location[1]+1])
+        # for moving left
+        elif x == "LEFT":
+            if location[1]-1 >= 0:
+                actionstopeform.append([x,location[0],location[1]-1])
+        # for moving up 
+        elif x == "UP":
+            if location[0]-1 >= 0:
+                actionstopeform.append([x,location[0]-1,location[1]])
+        # for moving down
+        elif x == "DOWN":
+            if location[0]+1 < len(board):
+                actionstopeform.append([x,location[0]+1,location[1]])
+ 
+    return actionstopeform
+ 
+print(possible_actions(puzzle_0, [1,1]))
+ 
+
+Output: 
+[['RIGHT', 1, 2], ['LEFT', 1, 0], ['UP', 0, 1], ['DOWN', 2, 1]]
